@@ -35,4 +35,17 @@ server.get('/api/users/:id', (req, res) => {
         .catch(err => res.status(500).json({message: "The user information could not be retrieved"}))
 })
 
+server.delete('/api/users/:id', (req, res) => {
+    const { id } = req.params;
+    userModel.remove(id)
+        .then(user => {
+            if(user == null){
+                res.status(404).json({message: "The user with the specified ID does not exist"})
+                return
+            }
+            res.json(user)
+        })
+        .catch(err => res.status(500).json({message: "The user could not be removed"}))
+})
+
 module.exports = server; // EXPORT YOUR SERVER instead of {}
