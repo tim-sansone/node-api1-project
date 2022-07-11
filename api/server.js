@@ -16,6 +16,11 @@ server.post('/api/users', (req, res) => {
     })
 })
 
+server.get('/api/users', (req, res) => {
+    userModel.find()
+        .then(users => res.json(users))
+        .catch(err => res.status(500).json({message: "The users information could not be retrieved"}))
+})
 
 
 module.exports = server; // EXPORT YOUR SERVER instead of {}
